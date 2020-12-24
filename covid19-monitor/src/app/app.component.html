@@ -1,0 +1,48 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner" fxFlexAlign="start center" fxLayout="row">
+  <img width="50" src="assets/img/coronavirus.png">
+  <h2>COVID19 Monitor</h2>
+  <div fxFlex="60%"></div>
+  <div fxFlex fxFlexAlign="end center" style="padding-bottom: 0px !important;">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [max]="today">
+        <input matStartDate placeholder="Start date" (dateChange)="startDateValue($event)">
+        <input matEndDate placeholder="End date" (dateChange)="endDateValue($event)">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="content" role="main">
+  <div fxFlex fxLayout="row" fxLayoutAlign="start-between center">
+    <div class="card-container card-graph">
+      <div *ngIf="dataSeries.length > 0" fxFlex fxLayout="column" fxLayoutAlign="start center">
+        <div class="card-title-text">
+          수신된 정부 데이터 원본
+        </div>
+        <ngx-charts-line-chart [view]="view" [results]="dataSeries" [gradient]="barChart.gradient"
+          [xAxis]="barChart.showXAxis" [yAxis]="barChart.showYAxis" [legend]="barChart.showLegend"
+          [showXAxisLabel]="barChart.showXAxisLabel" [showYAxisLabel]="barChart.showYAxisLabel"
+          [xAxisLabel]="barChart.xAxisLabel" [yAxisLabel]="barChart.yAxisLabel" [scheme]="barChart.colorScheme"
+          [legendTitle]="barChart.legendTitle">
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+    <div class="card-container card-graph card-left-padding">
+      <div *ngIf="dataCalSeries.length > 0" fxFlex fxLayout="column" fxLayoutAlign="start center">
+        <div class="card-title-text">
+          하루 증가량 표기
+        </div>
+        <ngx-charts-line-chart [view]="view" [results]="dataCalSeries"
+          [gradient]="barChart.gradient" [xAxis]="barChart.showXAxis" [yAxis]="barChart.showYAxis"
+          [legend]="barChart.showLegend" [showXAxisLabel]="barChart.showXAxisLabel"
+          [showYAxisLabel]="barChart.showYAxisLabel" [xAxisLabel]="barChart.xAxisLabel"
+          [yAxisLabel]="barChart.yAxisLabel" [scheme]="barChart.colorScheme" [legendTitle]="barChart.legendTitle">
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+  </div>
+</div>
